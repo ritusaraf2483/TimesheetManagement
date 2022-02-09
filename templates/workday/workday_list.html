@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for wd in object_list %}
+<a href="{% url 'Workday:workday_detail' wd.id %}">{{wd.user}}</a><br>
+  {{wd.location}}<br>
+{% endfor %}
+</body>
+</html>
