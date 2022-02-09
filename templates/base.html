@@ -20,9 +20,9 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="">Home</a>
         </li>
-        {% if user.username %}
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="user/login">Logout</a>
+          <a class="nav-link" href="user/login">Logout   Hi {{user.username}}</a>
         </li>
 
         {% else %}
@@ -31,7 +31,7 @@
         </li>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="user/userslist">Doctors  Hi {{user.username}}</a>
+          <a class="nav-link" href="user/userslist">Doctors</a>
         </li>
       </ul>
       <form class="d-flex">
