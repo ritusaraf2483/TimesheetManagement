@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django import forms
@@ -33,3 +33,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
