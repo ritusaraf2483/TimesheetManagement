@@ -29,5 +29,6 @@ class Workday(models.Model):
      hours_code=models.ForeignKey(Payroll,on_delete=models.CASCADE)
      payroll=models.FloatField()
 
+
      def get_absolute_url(self):
           return reverse('Workday:workday_list')

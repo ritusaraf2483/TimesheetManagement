@@ -10,11 +10,11 @@ from workdaymanagement.models import Workday
 def home(request):
      return render(request,'home.html')
 
-class get_list(ListView):
+class GetList(ListView):
      model=Workday
      template_name = 'workday/workday_list.html'
 
-class user_detail(DetailView):
+class UserDetail(DetailView):
      model=Workday
      template_name = 'workday/workday_detail.html'
 
@@ -25,6 +25,8 @@ class WorkdayCreate(LoginRequiredMixin,CreateView):
      success_url = reverse_lazy("Workday:workday_list")
      login_url= 'Users:login'
 
-class WorkdayDelete(DeleteView):
+class WorkdayDelete(LoginRequiredMixin,DeleteView):
      model = Workday
      template_name = 'workday/workday_delete.html'
+     success_url = reverse_lazy("Workday:workday_list")
+     login_url = 'Users:login'

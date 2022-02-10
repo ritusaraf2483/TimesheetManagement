@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<dir>
 {% for u in object_list %}
 <div class="card" style="width: 11rem;">
   <img src="{{u.image.url}}" class="card-img-top" alt="..." height="300px" width="300px">
   <div class="card-body">
     <h5 class="card-title">{{u.user.username}}</h5>
     <p class="card-text">{{u.address}}</p>
-    <a href="#" class="btn btn-primary">{{u.user.email}}</a>
+    <a href="{% url 'Users:profiledetail' u.id %}" class="btn btn-primary">{{u.user.email}}</a>
   </div>
 </div>
 {% endfor %}
 
-</body>
-</html>
+</dir>
+{% endblock %}

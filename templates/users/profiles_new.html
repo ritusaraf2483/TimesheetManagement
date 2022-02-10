@@ -2,10 +2,10 @@
 
 {% block content %}
 <dir>
-<form method="post">
+<form method="post" >
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    {{form.as_p}}
+    <button type="submit" value="save">Save</button>
 </form>
 </dir>
 {% endblock %}

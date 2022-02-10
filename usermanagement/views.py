@@ -1,15 +1,45 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+from usermanagement.forms import ProfileForm
 from usermanagement.models import Profile
 
 
-class users_list(ListView):
+class UsersList(ListView):
     model = Profile
     template_name = 'users/users_list.html'
+
+
+class ProfileDetail(DetailView):
+    model = Profile
+    template_name = 'users/profile_detail.html'
+
+
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'users/profiles_new.html'
+    success_url = reverse_lazy("Users:userslist")
+    login_url = 'Users:login'
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model=Profile
+    form_class = ProfileForm
+    template_name = 'users/profile_update.html'
+    success_url = reverse_lazy("Users:userslist")
+    login_url = 'Users:login'
+
+class ProfileDelete(LoginRequiredMixin, DeleteView):
+    model = Profile
+    template_name = 'users/profile_delete.html'
+    success_url = reverse_lazy("Users:userslist")
+    login_url = 'Users:login'
 
 
 class SignUpForm(UserCreationForm):
@@ -33,7 +63,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'users/signup.html', {'form': form})
-
-def logout_view(request):
-    if request.method == 'POST':
-        logout(request)
