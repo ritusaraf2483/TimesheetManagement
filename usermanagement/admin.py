@@ -4,6 +4,6 @@ from usermanagement.models import Profile
 
 
 class AdminUser(admin.ModelAdmin):
-    list_display = ['doc_id','phone','address','image']
+    list_display = ['phone','address','image']
 
 admin.site.register(Profile,AdminUser)

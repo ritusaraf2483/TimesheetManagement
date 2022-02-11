@@ -1,15 +1,12 @@
 from django.urls import path, re_path
-from django.views.generic import UpdateView
 from workdaymanagement import views
-from workdaymanagement.forms import WorkdayForm
-from workdaymanagement.models import Workday
-from workdaymanagement.views import WorkdayDelete
+from workdaymanagement.views import WorkdayDelete,WorkdayUpdate
 
 app_name='Workday'
 urlpatterns=[
    path('workdaylist',views.GetList.as_view(),name='workday_list'),
-   re_path('^(?P<pk>[0-9]+)$',views.UserDetail.as_view(),name="workday_detail"),
-   path('new',views.WorkdayCreate.as_view()),
-   path('<pk>/update',UpdateView.as_view(model=Workday,template_name='workday/workday_update.html',form_class=WorkdayForm)),
-   path('<int:pk>/delete',WorkdayDelete.as_view()),
+   path('new',views.WorkdayCreate.as_view(),name="new_workday"),
+   path('<pk>/update',views.WorkdayUpdate.as_view(),name="workday_edit"),
+   path('<int:pk>/delete',WorkdayDelete.as_view(),name="workday_delete"),
+   re_path('^(?P<pk>[0-9]+)$', views.UserDetail.as_view(), name="workday_detail"),
 ]

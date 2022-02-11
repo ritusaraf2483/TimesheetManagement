@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<dir>
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit" value="save">Save</button>
     <a href="{{ view.get_success_url }}" class="btn btn-default">Cancel</a>
 </form>
-</body>
-</html>
+</dir>
+{% endblock %}

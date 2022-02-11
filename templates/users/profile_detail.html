@@ -2,8 +2,24 @@
 
 {% block content %}
 <dir>
-<body>
-<img src="{{object.image.url}}" class="card-img-top" alt="..." height="300px" width="10px">
-</body>
+
+<img src="{{object.image.url}}" height="100px" width="100px"><br>
+ {{object.address}}<br>
+ {{object.user.email}}<br>
+ {{object.user.id}}<br><br>
+
+ {% for wd in workdays_list %}
+ {{wd.docid}}
+ {{wd.doctor}}
+ {{wd.location}}<br>
+{{wd.sector}}<br>
+{{wd.work_date}}<br>
+{{wd.time_in}}<br>
+{{wd.time_out}}<br>
+{{wd.hours_code}}<br>
+{{wd.payroll}}<br>
+ {% endfor %}
+  <a href="{% url 'Workday:new_workday' %}">Add Workday</a>
+
 </dir>
 {% endblock %}

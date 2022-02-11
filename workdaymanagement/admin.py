@@ -3,7 +3,7 @@ from workdaymanagement.models import Workday, Location, Payroll
 
 
 class AdminWorkday(admin.ModelAdmin):
-    list_display = ['user','location','sector','work_date','time_in','time_out','hours_code','payroll']
+    list_display = ['docid','doctor','location','sector','work_date','time_in','time_out','hours_code','payroll']
 
 class AdminLocation(admin.ModelAdmin):
     list_display = ['location']

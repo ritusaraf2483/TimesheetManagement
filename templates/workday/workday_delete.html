@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post">{% csrf_token %}
-   <p>Are you sure you want to delete "{{ object }}"?</p>
+   <p>Are you sure you want to delete ?</p>
    <input type="submit" value="Confirm">
    <a href="{{ view.get_success_url }}" class="btn btn-default">Cancel</a>
 </form>

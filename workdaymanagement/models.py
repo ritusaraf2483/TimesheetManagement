@@ -20,7 +20,8 @@ class Payroll(models.Model):
 
 class Workday(models.Model):
      id=models.AutoField(primary_key=True)
-     user=models.ForeignKey(Profile,on_delete=models.CASCADE,blank=True)
+     docid=models.IntegerField()
+     doctor=models.CharField(max_length=20)
      location=models.ForeignKey(Location,on_delete=models.CASCADE,blank=True)
      sector=models.CharField(max_length=7,blank=True)
      work_date=models.DateField(default=date.today,blank=True)

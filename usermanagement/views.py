@@ -1,6 +1,10 @@
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.core.exceptions import ValidationError
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from django import forms
@@ -9,6 +13,7 @@ from django.contrib.auth.models import User
 
 from usermanagement.forms import ProfileForm
 from usermanagement.models import Profile
+from workdaymanagement.models import Workday
 
 
 class UsersList(ListView):
@@ -20,6 +25,11 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'users/profile_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['workdays_list'] = Workday.objects.filter(docid=self.object.user.id)
+        return context
+
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
@@ -28,6 +38,11 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("Users:userslist")
     login_url = 'Users:login'
 
+    def form_valid(self, form):
+        form.instance.doc_id = self.request.user.id
+        return super().form_valid(form)
+
+
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model=Profile
     form_class = ProfileForm
@@ -35,11 +50,23 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("Users:userslist")
     login_url = 'Users:login'
 
+    def get_object(self, queryset=None):
+        obj = UpdateView.get_object(self, queryset=None)
+        if not obj.user == self.request.user:
+            raise ValidationError('You are not an authorized user')
+        return obj
+
 class ProfileDelete(LoginRequiredMixin, DeleteView):
     model = Profile
     template_name = 'users/profile_delete.html'
     success_url = reverse_lazy("Users:userslist")
     login_url = 'Users:login'
+
+    def get_object(self, queryset=None):
+        obj = UpdateView.get_object(self, queryset=None)
+        if not obj.user == self.request.user:
+            raise ValidationError('You are not an authorized user')
+        return obj
 
 
 class SignUpForm(UserCreationForm):

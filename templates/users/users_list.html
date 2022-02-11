@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<dir>
+<div>
 {% for u in object_list %}
-<div class="card" style="width: 11rem;">
-  <img src="{{u.image.url}}" class="card-img-top" alt="..." height="300px" width="300px">
-  <div class="card-body">
-    <h5 class="card-title">{{u.user.username}}</h5>
-    <p class="card-text">{{u.address}}</p>
-    <a href="{% url 'Users:profiledetail' u.id %}" class="btn btn-primary">{{u.user.email}}</a>
-  </div>
-</div>
-{% endfor %}
+   <img src="{{u.image.url}}" height="200px" width="200px"><br>
+    <a href="{% url 'Users:profiledetail' u.id %}">{{u.user.username}}</a><br>
+    {{u.address}}<br>
+    {{u.user.email}}<br>
 
-</dir>
+  <div class="btn-group" role="group" aria-label="Basic example">
+
+  <a href="{% url 'Users:profileupdate' u.id %}">Edit</a><br>
+  <a href="{% url 'Users:profiledelete' u.id %}">Delete</a><br>
+
+</div>
+    {% endfor %}
+</div>
+
 {% endblock %}

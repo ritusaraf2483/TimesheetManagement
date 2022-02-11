@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{{object.user}}<br>
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
 {{object.location}}<br>
 {{object.sector}}<br>
 {{object.work_date}}<br>
@@ -13,5 +9,7 @@
 {{object.time_out}}<br>
 {{object.hours_code}}<br>
 {{object.payroll}}<br>
-</body>
-</html>
+</div>
+<a href="{% url 'Workday:workday_edit'  object.id %}">Edit</a>
+<a href="{% url 'Workday:workday_delete' object.id %}">Delete</a>
+{% endblock %}
