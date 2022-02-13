@@ -12,7 +12,7 @@ class WorkdayForm(forms.ModelForm):
 
     class Meta:
         model=Workday
-        exclude=['docid','doctor']
+        exclude=['docid','doctor','hours_worked','total_payroll']
     def clean(self):
         super(WorkdayForm,self).clean()
         payroll=self.cleaned_data.get('payroll')

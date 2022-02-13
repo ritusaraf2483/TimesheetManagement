@@ -1,3 +1,5 @@
+from calendar import HTMLCalendar
+import datetime
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,6 +22,17 @@ class UsersList(ListView):
     model = Profile
     template_name = 'users/users_list.html'
 
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+
+        if query:
+
+            object_list = self.model.objects.filter(user__username=query)
+            return object_list
+        else:
+            object_list = self.model.objects.all()
+            return object_list
+
 
 class ProfileDetail(DetailView):
     model = Profile
@@ -29,7 +42,6 @@ class ProfileDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['workdays_list'] = Workday.objects.filter(docid=self.object.user.id)
         return context
-
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
@@ -68,7 +80,6 @@ class ProfileDelete(LoginRequiredMixin, DeleteView):
             raise ValidationError('You are not an authorized user')
         return obj
 
-
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -77,6 +88,7 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

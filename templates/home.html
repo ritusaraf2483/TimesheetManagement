@@ -1,7 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<dir>
-    <h1>Welcome to Timesheet Management</h1>
-</dir>
+
+<div class="container-fluid mt-4">
+<h1>Welcome to Timesheet Management</h1>
+<form method="POST">
+{% csrf_token %}
+
+{% if error_message %}
+   <div class="alert alert-danger" role="alert">
+     {{error_message}}
+   </div>
+{% endif %}
+
+<input type="date" name="start_date"/>
+<input type="date" name="end_date"/>
+<input type="submit" value="Search"/>
+<div>
+{% if reportdata %}
+<table class="table table-bordered mt-4" border="2">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Sector</th>
+      <th scope="col">Work_date</th>
+      <th scope="col">Time_in</th>
+      <th scope="col">Time_out</th>
+      <th scope="col">Hours_worked</th>
+      <th scope="col">Hours_code</th>
+      <th scope="col">Payroll</th>
+      <th scope="col">Total Payroll</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for d in reportdata %}
+    <tr>
+      <td>{{d.doctor}}</td>
+      <td>{{d.location}}</td>
+      <td>{{d.sector}}</td>
+      <td>{{d.work_date}}</td>
+      <td>{{d.time_in}}</td>
+      <td>{{d.time_out}}</td>
+      <td>{{d.hours_worked}}</td>
+      <td>{{d.hours_code}}</td>
+      <td>{{d.payroll}}</td>
+      <td>{{d.total_payroll}}</td>
+    </tr>
+  {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+</div>
+</form>
+</div>
+
 {% endblock %}

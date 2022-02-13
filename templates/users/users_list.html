@@ -1,20 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
+
+<div class="container-fluid mt-4">
 {% for u in object_list %}
-   <img src="{{u.image.url}}" height="200px" width="200px"><br>
-    <a href="{% url 'Users:profiledetail' u.id %}">{{u.user.username}}</a><br>
-    {{u.address}}<br>
-    {{u.user.email}}<br>
-
-  <div class="btn-group" role="group" aria-label="Basic example">
-
-  <a href="{% url 'Users:profileupdate' u.id %}">Edit</a><br>
-  <a href="{% url 'Users:profiledelete' u.id %}">Delete</a><br>
-
+<div class="mb-3" style="max-width: 900px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{u.image.url}}" height="280px" width="280px">
+    </div>
+    <div class="col-md-8">
+      <div class="">
+        <h5 ><a href="{% url 'Users:profiledetail' u.id %}">{{u.user.username}}</a></h5>
+        {{u.address}}<br>
+        {{u.phone}}
+        <p class="card-text"><small class="text-muted">{{u.user.email}}</small></p>
+           <a href="{% url 'Users:profileupdate' u.id %}">Edit</a>
+           <a href="{% url 'Users:profiledelete' u.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
 </div>
-    {% endfor %}
+{% endfor %}
 </div>
 
 {% endblock %}

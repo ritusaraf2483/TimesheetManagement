@@ -21,7 +21,7 @@ from workdaymanagement import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name='home'),
+    path('',views.GenerateReport,name='home'),
     path('workday/',include('workdaymanagement.urls',namespace='Workday')),
     path('user/',include('usermanagement.urls',namespace='Users'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,6 +6,3 @@ class Profile(models.Model):
     phone=models.CharField(max_length=13,blank=True)
     address=models.CharField(max_length=30,blank=True)
     image=models.ImageField(upload_to='images/users')
-
-    def __str__(self):
-        return self.doc_id

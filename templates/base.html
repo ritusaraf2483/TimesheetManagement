@@ -30,12 +30,25 @@
           <a class="nav-link" href="{% url 'Users:login' %}">Login</a>
         </li>
         {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Doctors
+          </a>
+          <ul class="dropdown-menu dropdown-menu-light">
+            <li><a class="dropdown-item" href="{% url 'Users:userslist' %}">View Doctors</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'Users:new' %}">Add Doctors</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'Users:userslist' %}">Doctors</a>
+          <a class="nav-link" href="{% url 'Workday:workday_list' %}">Workdays</a>
         </li>
       </ul>
-      <form class="d-flex">
-         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" method="GET" action="{% url 'Users:userslist' %}">
+         <input class="form-control me-2" name="q" value="{{request.GET.q}}" type="search" placeholder="Search Doctor" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
