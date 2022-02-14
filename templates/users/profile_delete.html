@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid mt-4">
 <form method="post">{% csrf_token %}
    <p>Are you sure you want to delete "{{ object.user.username }}"?</p>
    <input type="submit" value="Confirm">
    <a href="{{ view.get_success_url }}" class="btn btn-default">Cancel</a>
 </form>
-</body>
-</html>
+</div>>
+{% endblock %}

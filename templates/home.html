@@ -7,15 +7,16 @@
 <form method="POST">
 {% csrf_token %}
 
+<input type="date" name="start_date"/>
+<input type="date" name="end_date"/>
+<input type="text" name="Doctor_id">
+<input type="submit" value="Search"/>
+
 {% if error_message %}
-   <div class="alert alert-danger" role="alert">
+   <div class="alert alert-danger mt-4" role="alert">
      {{error_message}}
    </div>
 {% endif %}
-
-<input type="date" name="start_date"/>
-<input type="date" name="end_date"/>
-<input type="submit" value="Search"/>
 <div>
 {% if reportdata %}
 <table class="table table-bordered mt-4" border="2">

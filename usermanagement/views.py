@@ -27,7 +27,7 @@ class UsersList(ListView):
 
         if query:
 
-            object_list = self.model.objects.filter(user__username=query)
+            object_list = self.model.objects.filter(user__username__contains=query)
             return object_list
         else:
             object_list = self.model.objects.all()
@@ -62,11 +62,14 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("Users:userslist")
     login_url = 'Users:login'
 
+
     def get_object(self, queryset=None):
         obj = UpdateView.get_object(self, queryset=None)
         if not obj.user == self.request.user:
             raise ValidationError('You are not an authorized user')
         return obj
+
+
 
 class ProfileDelete(LoginRequiredMixin, DeleteView):
     model = Profile
