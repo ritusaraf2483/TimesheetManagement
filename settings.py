@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-zc17kg!ks6mx60#pcoh+j!#-w)wi5dmt$_dklezx#7_oi+5!ll
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['3.95.238.1','34.234.4.151','3.92.174.193']
 
 # Application definition
 
@@ -41,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'usermanagement',
     'workdaymanagement',
-    'django_jenkins',
 ]
 
 MIDDLEWARE = [
